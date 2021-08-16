@@ -1,0 +1,35 @@
+{
+	"name": "isotopekit/integration_third_party_sync",
+	"description": "Sync Emails with Third Party Tools",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Vijayant Katyal",
+			"email": "hello@vijayantkatyal.com"
+		}
+	],
+	"require": {
+		"drewm/mailchimp-api": "^2.5",
+		"getresponse/sdk-php": "^2.0",
+		"infusionsoft/php-sdk": "^1.5",
+		"mizanur/icontact-api-php": "^2.2",
+		"sendinblue/api-v3-sdk": "7.x.x",
+        "sendpulse/rest-api": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"IsotopeKit\\IntegrationThirdPartySync\\": "src/"
+		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"IsotopeKit\\IntegrationThirdPartySync\\ServiceProvider"
+			]
+		}
+	},
+	"config": {
+		"sort-packages": true
+	}
+}
