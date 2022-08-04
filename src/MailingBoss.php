@@ -35,7 +35,7 @@ class MailingBoss
 		return $response;
     }
 
-    public function _post_request($url, $email, $list_id)
+    public function _post_request($url, $email, $list_id, $fname, $lname)
     {
 
         $curl = curl_init();
@@ -55,7 +55,9 @@ class MailingBoss
 			// CURLOPT_POSTFIELDS => json_encode($data)
             CURLOPT_POSTFIELDS => json_encode(array(
                 "email"         =>  $email,
-                "list_uid"      =>  $list_id
+                "list_uid"      =>  $list_id,
+				"fname"			=>	$fname,
+				"lname"			=>	$lname
 			))
 		));
 
@@ -74,7 +76,7 @@ class MailingBoss
     public function addSubscriber($list_id, $email, $first_name, $last_name)
     {
         $res = $this->_post_request(
-            "https://member.mailingboss.com/integration/index.php/lists/subscribers/create/".$this->api_key, $email, $list_id);
+            "https://member.mailingboss.com/integration/index.php/lists/subscribers/create/".$this->api_key, $email, $list_id, $first_name, $last_name);
 
         return $res;
     }
