@@ -43,22 +43,13 @@ class MailingBoss
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
-            // CURLOPT_HTTPHEADER => array(
-            //     'Api-Token: '.$this->api_key
-            // ),
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
 			CURLOPT_TIMEOUT => 0,
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
-			// CURLOPT_POSTFIELDS => json_encode($data)
-            CURLOPT_POSTFIELDS => json_encode(array(
-                "email"         =>  $email,
-                "list_uid"      =>  $list_id,
-				"fname"			=>	$fname,
-				"lname"			=>	$lname
-			))
+			CURLOPT_POSTFIELDS => "email=".$email."&list_uid=".$list_id."&fname=".$fname."&lname=".$lname
 		));
 
 		$response = curl_exec($curl);
