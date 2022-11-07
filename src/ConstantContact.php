@@ -11,98 +11,72 @@ class ConstantContact
     private $api_secret;
 	private $api_callback_url;
 
-	public function __construct($agency_id = null)
+	public function __construct($api_key = null, $api_secret = null, $api_callback_url = null)
 	{
-        // Log::channel('queue')->info('Agency_ID_X: ' .$agency_id);
-        if($agency_id == null)
-		{
-            $this->api_key = Site::settings()['DEFAULT_API_KEY_CONSTANTC'];
-            $this->api_secret = Site::settings()['DEFAULT_API_SECRET_CONSTANTC'];
-            $this->api_callback_url = url("/callback/constantcontact");
-        }
-        else
-		{
-			if($agency_id == "default")
-			{
-				$site_details = Site::where('id', '1')->first();
-				if($site_details)
-				{
-					$this->api_key = $site_details->DEFAULT_API_KEY_CONSTANTC;
-					$this->api_secret = $site_details->DEFAULT_API_SECRET_CONSTANTC;
-					$this->api_callback_url = url("/callback/constantcontact");
-				}
-			}
-			else
-			{
-				$site_details = Site::where('agency_id', $agency_id)->first();
-				if($site_details)
-				{
-					$this->api_key = $site_details->DEFAULT_API_KEY_CONSTANTC;
-					$this->api_secret = $site_details->DEFAULT_API_SECRET_CONSTANTC;
-					$this->api_callback_url = url("/callback/constantcontact");
-				}
-			}
-		}
+        $this->api_key = $api_key;
+		$this->api_secret = $api_secret;
+		$this->api_callback_url = $api_callback_url;
     }
 
     public function getAccessToken($code)
     {
-        $base = 'https://idfed.constantcontact.com/as/token.oauth2';
-        $url = $base . '?code=' . $code . '&redirect_uri=' . $this->api_callback_url . '&grant_type=authorization_code&scope=contact_data';
+        $ch = curl_init();
 
+        // Define base URL
+        $base = 'https://authz.constantcontact.com/oauth2/default/v1/token';
+
+        // Create full request URL
+        $url = $base . '?code=' . $code . '&redirect_uri=' . $this->api_callback_url . '&grant_type=authorization_code';
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        // Set authorization header
+        // Make string of "API_KEY:SECRET"
         $auth = $this->api_key . ':' . $this->api_secret;
+        // Base64 encode it
         $credentials = base64_encode($auth);
+        // Create and set the Authorization header to use the encoded credentials, and set the Content-Type header
         $authorization = 'Authorization: Basic ' . $credentials;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization, 'Content-Type: application/x-www-form-urlencoded'));
 
-        $curl = curl_init();
+        // Set method and to expect response
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array($authorization),
-			CURLOPT_ENCODING => "",
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => "POST"
-			// CURLOPT_POSTFIELDS => array('api' => $this->api_key, 'hash' => $this->api_secret),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		return $response;
+        // Make the call
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 
     public function getRefreshToken($refreshToken)
     {
-        $base = 'https://idfed.constantcontact.com/as/token.oauth2';
+        // Use cURL to get a new access token and refresh token
+        $ch = curl_init();
+
+        // Define base URL
+        $base = 'https://authz.constantcontact.com/oauth2/default/v1/token';
+
+        // Create full request URL
         $url = $base . '?refresh_token=' . $refreshToken . '&grant_type=refresh_token';
+        curl_setopt($ch, CURLOPT_URL, $url);
 
+        // Set authorization header
+        // Make string of "API_KEY:SECRET"
         $auth = $this->api_key . ':' . $this->api_secret;
+        // Base64 encode it
         $credentials = base64_encode($auth);
+        // Create and set the Authorization header to use the encoded credentials, and set the Content-Type header
         $authorization = 'Authorization: Basic ' . $credentials;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization, 'Content-Type: application/x-www-form-urlencoded'));
 
-        $curl = curl_init();
+        // Set method and to expect response
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array($authorization),
-			CURLOPT_ENCODING => "",
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => "POST"
-			// CURLOPT_POSTFIELDS => array('api' => $this->api_key, 'hash' => $this->api_secret),
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		return $response;
+        // Make the call
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 
     public function getAccountInfo($access_token)
@@ -130,7 +104,7 @@ class ConstantContact
 
     public function getLoginURL()
     {
-        $url = "https://api.cc.email/v3/idfed?client_id=".$this->api_key."&redirect_uri=".$this->api_callback_url."&response_type=code&scope=contact_data+campaign_data+account_read";
+        $url = "https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=".$this->api_key."&redirect_uri=".$this->api_callback_url."&response_type=code&scope=contact_data+campaign_data+account_read+offline_access&state=leadpal";
         return $url;
     }
 

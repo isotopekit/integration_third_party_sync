@@ -11,38 +11,11 @@ class Infusionsoft
     private $api_secret;
 	private $api_callback_url;
 
-	public function __construct($agency_id = null)
+	public function __construct($api_key = null, $api_secret = null, $api_callback_url = null)
 	{
-        // Log::channel('queue')->info('Agency_ID_X: ' .$agency_id);
-        if($agency_id == null)
-		{
-            $this->api_key = Site::settings()['DEFAULT_API_KEY_INFUSIONSOFT'];
-            $this->api_secret = Site::settings()['DEFAULT_API_SECRET_INFUSIONSOFT'];
-            $this->api_callback_url = url("/callback/infusionsoft");
-        }
-        else
-		{
-			if($agency_id == "default")
-			{
-				$site_details = Site::where('id', '1')->first();
-				if($site_details)
-				{
-					$this->api_key = $site_details->DEFAULT_API_KEY_INFUSIONSOFT;
-					$this->api_secret = $site_details->DEFAULT_API_SECRET_INFUSIONSOFT;
-					$this->api_callback_url = url("/callback/infusionsoft");
-				}
-			}
-			else
-			{
-				$site_details = Site::where('agency_id', $agency_id)->first();
-				if($site_details)
-				{
-					$this->api_key = $site_details->DEFAULT_API_KEY_INFUSIONSOFT;
-					$this->api_secret = $site_details->DEFAULT_API_SECRET_INFUSIONSOFT;
-					$this->api_callback_url = url("/callback/infusionsoft");
-				}
-			}
-		}
+        $this->api_key = $api_key;
+		$this->api_secret = $api_secret;
+		$this->api_callback_url = $api_callback_url;
     }
 
     public function getAccessToken($code)
