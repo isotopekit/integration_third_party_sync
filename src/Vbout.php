@@ -74,8 +74,8 @@ class Vbout
             "&email=".$email.
             "&status=active".
             "&listid=".$list_id.
-            "&fields[125]=".$first_name.
-            "&fields[1204]=".$last_name
+            "&fields[674534]=".$first_name.
+            "&fields[674535]=".$last_name
         );
 
         return $res;
