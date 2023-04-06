@@ -11,7 +11,7 @@ class Zapier
 		$this->hook_url = $hook_url;
     }
 
-    public function postData($first_name, $last_name, $email)
+    public function postData($first_name, $last_name, $email, $phone = null)
     {
         $curl = curl_init();
 
@@ -27,7 +27,8 @@ class Zapier
 			CURLOPT_POSTFIELDS => array(
 				'first_name' => $first_name, 
 				'last_name'	=>	$last_name,
-                'email' => $email
+                'email' => $email,
+				'phone' => $phone
             ),
 		));
 
