@@ -47,12 +47,13 @@ class ActiveDemand
         return $fields_string;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         $fields = [
             "contact[first_name]"    =>  $first_name,
             "contact[last_name]"     =>  $last_name,
-            "contact[emails.email_address]"  =>  $email
+            "contact[emails.email_address]"  =>  $email,
+			"contact[phones.phone_number]"	=>	$phone
         ];
 
         $data = $this->activedemand_field_string($fields);        

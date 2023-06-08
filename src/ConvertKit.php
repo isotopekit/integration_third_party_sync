@@ -73,14 +73,15 @@ class ConvertKit
         return $this->_get_request($url);
     }
 
-    public function addUserToForm($form_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToForm($form_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $data = array(
             "api_key"   =>  $this->api_key,
             "email"     =>  $user_email,
             "first_name" =>  $user_f_name,
             "fileds"    =>  array(
-                "last_name"  =>  $user_l_name
+                "last_name"  =>  $user_l_name,
+				"phone"		 =>	 $phone
             )
         );
 

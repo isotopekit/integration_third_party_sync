@@ -28,7 +28,7 @@ class GetResponse
 		return $contacts->getData();
 	}
 
-	public function addUserToList($campaignId, $email = null, $first_name = null, $last_name = null)
+	public function addUserToList($campaignId, $email = null, $first_name = null, $last_name = null, $phone = null)
 	{
 		try
 		{
@@ -39,6 +39,14 @@ class GetResponse
 			);
 			$newContact->setName($first_name. " ".$last_name);
 			$newContact->setDayOfCycle('0');
+			// $newContact->setCustomFieldValues(
+			// 	[
+			// 		new \Getresponse\Sdk\Operation\Model\NewContactCustomFieldValue(
+			// 			"Phone",
+			// 			$phone
+			// 		)
+			// 	]
+			// );
 
 			$createContact = new \Getresponse\Sdk\Operation\Contacts\CreateContact\CreateContact($newContact);
 			$createContactResponse = $client->call($createContact);

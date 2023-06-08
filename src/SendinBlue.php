@@ -59,7 +59,7 @@ class SendinBlue
         }
     }
 
-    public function addUserToList($list_id, $user_email = null)
+    public function addUserToList($list_id, $user_email = null, $phone = null)
 	{
         $config = \SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $this->api_key);
 
@@ -82,6 +82,7 @@ class SendinBlue
             // $att = new stdClass();
             // $att->FNAME = $user_f_name;
             // $att->LNAME =  $user_l_name;
+			// $att->PHONE = $phone;
 
             // $createContact->setAttributes($att);
             $result = $apiInstance->createContact($createContact);

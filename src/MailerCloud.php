@@ -49,7 +49,7 @@ class MailerCloud
         return $lists;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         // create contact
         $curl = curl_init();
@@ -69,7 +69,8 @@ class MailerCloud
 		CURLOPT_POSTFIELDS => json_encode(array(
                 "email"     =>  $email,
                 "name"      =>  $first_name." ".$last_name,
-                "list_id"   =>  $listID
+                "list_id"   =>  $listID,
+				"phone"		=>	$phone
 			))
 		));
 

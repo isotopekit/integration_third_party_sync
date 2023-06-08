@@ -49,7 +49,7 @@ class Fluentcrm
         }
     }
 
-    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $curl = curl_init();
 
@@ -69,6 +69,7 @@ class Fluentcrm
                 "first_name"    =>  $user_f_name,
                 "last_name"     =>  $user_l_name,
                 "email"         =>  $user_email,
+				"phone"			=>	$phone,
                 "lists"         =>  array([
                     $list_id
                 ])

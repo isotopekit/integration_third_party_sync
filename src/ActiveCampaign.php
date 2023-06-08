@@ -81,13 +81,14 @@ class ActiveCampaign
         return $this->_get_request($url);
     }
 
-    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $data = array(
             'contact' => array(
                 "email"     =>  $user_email,
                 "firstName" =>  $user_f_name,
-                "lastName"  =>  $user_l_name
+                "lastName"  =>  $user_l_name,
+				"phone"		=>	$phone
             )
         );
 

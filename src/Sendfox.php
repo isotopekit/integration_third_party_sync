@@ -54,7 +54,7 @@ class Sendfox
         return $lists;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         // create contact
         $curl = curl_init();

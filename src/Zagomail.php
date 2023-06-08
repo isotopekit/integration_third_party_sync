@@ -58,7 +58,7 @@ class Zagomail
         }
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         $curl = curl_init();
 
@@ -79,7 +79,8 @@ class Zagomail
                 "publicKey"     =>  $this->api_key,
                 "fname"     =>  $first_name,
                 "lname"     =>  $last_name,
-                "email"     =>  $email
+                "email"     =>  $email,
+				"phone"		=>	$phone
 			))
 		));
 

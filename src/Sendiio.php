@@ -97,7 +97,7 @@ class Sendiio
         return json_encode($response);
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         // create contact
         $curl = curl_init();
@@ -118,7 +118,8 @@ class Sendiio
                 "secret: ".$this->api_secret,
                 "email_list_id" =>  $listID,
                 "email"         =>  $email,
-                "name"          =>  $first_name." ".$last_name
+                "name"          =>  $first_name." ".$last_name,
+				"phone"			=>	$phone
 			))
 		));
 

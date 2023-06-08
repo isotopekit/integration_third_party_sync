@@ -79,7 +79,7 @@ class InboxAPI
 		return $response;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         $fetch_token = $this->getToken();
         $fetch_token = json_decode($fetch_token);

@@ -32,7 +32,7 @@ class MailChimp
 		}
 	}
 	
-	public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+	public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
 	{
 		try
 		{
@@ -42,7 +42,8 @@ class MailChimp
 				'status'		=>	'subscribed',
 				'merge_fields' => [
 					'FNAME'	=>	$user_f_name,
-					'LNAME'	=>	$user_l_name
+					'LNAME'	=>	$user_l_name,
+					'PHONE'	=>	$phone
 				]
 			]);
 

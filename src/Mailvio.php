@@ -44,7 +44,7 @@ class Mailvio
         return $lists;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         // create contact
         $curl = curl_init();
@@ -65,7 +65,8 @@ class Mailvio
                 "email"         =>  $email,
                 "attributes"    =>  array(
                     "FIRSTNAME"     =>  $first_name,
-                    "LASTNAME"      =>  $last_name
+                    "LASTNAME"      =>  $last_name,
+					"PHONE"			=>	$phone
                 ),
                 "listIds"   =>  [
                     $listID

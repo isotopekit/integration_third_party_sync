@@ -37,7 +37,7 @@ class SendLane
 		return $response;
 	}
 
-	public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+	public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
 	{
 		$curl = curl_init();
 
@@ -56,7 +56,8 @@ class SendLane
 				'email'			=>	$user_email,
 				'list_id'		=>	$list_id,
 				'first_name'	=>	$user_f_name,
-				'last_name'		=>	$user_l_name
+				'last_name'		=>	$user_l_name,
+				'phone'			=>	$phone
 			)
 		));
 

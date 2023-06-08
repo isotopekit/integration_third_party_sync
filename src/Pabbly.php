@@ -47,7 +47,7 @@ class Pabbly
         }
     }
 
-    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $curl = curl_init();
 
@@ -68,7 +68,8 @@ class Pabbly
 				"import"    =>  "single",
                 "list_id"   =>  $list_id,
                 "email"     =>  $user_email,
-                "name"      =>  $user_f_name." ".$user_l_name
+                "name"      =>  $user_f_name." ".$user_l_name,
+				"mobile"	=>	$phone
 			))
         ));
 

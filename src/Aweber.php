@@ -162,7 +162,7 @@ class Aweber
 		return $lists;
 	}
 
-	public function addUserToList($accessToken, $accountId, $listID, $email, $first_name = null, $last_name = null, $tags = null)
+	public function addUserToList($accessToken, $accountId, $listID, $email, $first_name = null, $last_name = null, $tags = null, $phone = null)
 	{
 		try
 		{

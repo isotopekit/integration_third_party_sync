@@ -43,7 +43,7 @@ class MooSend
         return $lists;
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         // create contact
         $curl = curl_init();
@@ -63,7 +63,12 @@ class MooSend
 		CURLOPT_CUSTOMREQUEST => "POST",
 		CURLOPT_POSTFIELDS => json_encode(array(
                 "Email"     =>  $email,
-                "Name"      =>  $first_name." ".$last_name
+                "Name"      =>  $first_name." ".$last_name,
+				"CustomFields" => [
+					"CustomFieldID"	=> "728f6774-37ea-4d81-8607-ce8308136760",
+        			"Name"	=> "Phone",
+        			"Value"	=> $phone
+				]
 			))
 		));
 

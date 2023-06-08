@@ -51,7 +51,7 @@ class IContact
         }
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         try
         {
@@ -61,7 +61,7 @@ class IContact
                 'apiUsername' => $this->api_username
             ));
 
-            $contact_info = $icontact->addContact($email, null, null, $first_name, $last_name);
+            $contact_info = $icontact->addContact($email, null, null, $first_name, $last_name, null, null, null, null, null, null, $phone);
             $res = $icontact->subscribeContactToList($contact_info->contactId,$listID);
             if(sizeof($res) > 0)
             {

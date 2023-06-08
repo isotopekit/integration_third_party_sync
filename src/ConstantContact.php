@@ -131,7 +131,7 @@ class ConstantContact
         return $response;
     }
 
-    public function addUserToList($access_token, $list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToList($access_token, $list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $data = array(
             'email_address' => array(
@@ -141,6 +141,10 @@ class ConstantContact
             "create_source" => "Account",
             'first_name' =>  $user_f_name,
             'last_name'  =>  $user_l_name,
+			'phone_numbers'	=>	array(
+				"phone_number"	=>	$phone,
+				"kind"			=>	"home"
+			),
             'list_memberships'  =>  [
                 $list_id
             ] 

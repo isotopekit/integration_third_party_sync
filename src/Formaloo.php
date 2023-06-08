@@ -95,7 +95,7 @@ class Formaloo
         }
     }
 
-    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null)
+    public function addUserToList($listID, $email = null, $first_name = null, $last_name = null, $phone = null)
     {
         $curl = curl_init();
 
@@ -117,7 +117,8 @@ class Formaloo
             CURLOPT_POSTFIELDS => json_encode(array(
                 "first_name"    =>  $first_name,
                 "last_name"     =>  $last_name,
-                "email"         =>  $email
+                "email"         =>  $email,
+				"phone_number" => $phone
 			))
 		));
 

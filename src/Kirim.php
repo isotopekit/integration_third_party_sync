@@ -42,7 +42,7 @@ class Kirim
 		return $response;
 	}
 
-	public function addSubscriber($list_id, $first_name, $last_name, $email)
+	public function addSubscriber($list_id, $first_name, $last_name, $email, $phone = null)
 	{
 		$api_time = time();
 		$generated_token = hash_hmac("sha256", $this->username . "::" . $this->api_key . "::" . $api_time, $this->api_key);
@@ -60,7 +60,7 @@ class Kirim
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS => 'lists='.$list_id.'&full_name='.$full_name.'&email='.$email,
+			CURLOPT_POSTFIELDS => 'lists='.$list_id.'&full_name='.$full_name.'&email='.$email.'&fields[no_hp]='.$phone,
 			CURLOPT_HTTPHEADER => array(
 				'Auth-Id: ' . $this->username,
 				'Auth-Token: ' . $generated_token,

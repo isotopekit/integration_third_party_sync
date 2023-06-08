@@ -35,7 +35,7 @@ class MailingBoss
 		return $response;
     }
 
-    public function _post_request($url, $email, $list_id, $fname, $lname)
+    public function _post_request($url, $email, $list_id, $fname, $lname, $phone)
     {
 
         $curl = curl_init();
@@ -49,7 +49,7 @@ class MailingBoss
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
-			CURLOPT_POSTFIELDS => "email=".$email."&list_uid=".$list_id."&fname=".$fname."&lname=".$lname
+			CURLOPT_POSTFIELDS => "email=".$email."&list_uid=".$list_id."&fname=".$fname."&lname=".$lname."&phone=".$phone
 		));
 
 		$response = curl_exec($curl);
@@ -64,10 +64,10 @@ class MailingBoss
         return $res;
     }
 
-    public function addSubscriber($list_id, $email, $first_name, $last_name)
+    public function addSubscriber($list_id, $email, $first_name, $last_name, $phone = null)
     {
         $res = $this->_post_request(
-            "https://member.mailingboss.com/integration/index.php/lists/subscribers/create/".$this->api_key, $email, $list_id, $first_name, $last_name);
+            "https://member.mailingboss.com/integration/index.php/lists/subscribers/create/".$this->api_key, $email, $list_id, $first_name, $last_name, $phone);
 
         return $res;
     }

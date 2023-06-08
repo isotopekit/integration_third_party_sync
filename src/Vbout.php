@@ -67,7 +67,7 @@ class Vbout
         return $res;
     }
 
-    public function addSubscriber($list_id, $email, $first_name, $last_name)
+    public function addSubscriber($list_id, $email, $first_name, $last_name, $phone = null)
     {
         $res = $this->_post_request(
             "https://api.vbout.com/1/emailmarketing/addcontact.json?key=".$this->api_key.
@@ -75,7 +75,8 @@ class Vbout
             "&status=active".
             "&listid=".$list_id.
             "&fields[674534]=".$first_name.
-            "&fields[674535]=".$last_name
+            "&fields[674535]=".$last_name.
+			"&fields[674536]=".$phone
         );
 
         return $res;

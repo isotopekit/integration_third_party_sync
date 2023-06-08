@@ -29,7 +29,7 @@ class SendPulse
         }
     }
 
-    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null)
+    public function addUserToList($list_id, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         try
         {
@@ -38,7 +38,7 @@ class SendPulse
                 array(
                     'email' => $user_email,
                     'variables' => array(
-                        // 'phone' => '+12345678900',
+                        'phone' => $phone,
                         'name' => $user_f_name." ".$user_l_name,
                     )
                 )
