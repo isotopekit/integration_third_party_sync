@@ -417,12 +417,16 @@ class Infusionsoft
         return $response;
 	}
 
-	public function addUserWithTag($access_token, $tagId, $user_email = null, $user_f_name = null, $user_l_name = null)
+	public function addUserWithTag($access_token, $tagId, $user_email = null, $user_f_name = null, $user_l_name = null, $phone = null)
     {
         $data = array(
             'email_addresses' => array([
                 "email"     =>  $user_email,
                 "field"    =>  "EMAIL1"
+			]),
+			'phone_numbers' => array([
+                "number"     =>  $phone,
+                "field"    =>  "PHONE1"
 			]),
             'given_name' =>  $user_f_name. " ".$user_l_name,
             'opt_in_reason'  =>  "Customer opted-in through webform"
