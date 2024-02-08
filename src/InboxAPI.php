@@ -91,17 +91,17 @@ class InboxAPI
         $token = $fetch_token->resultObject->access_token;
 
         $data = array(
-            'email'  =>  $email
-            // 'customFields'  =>  [
-            //     array(
-            //         'customFieldId' =>  '5d81c3ddfe5cd10001149c95',
-            //         'value'         =>  $first_name
-            //     ),
-            //     array(
-            //         'customFieldId' =>  '5d81c3de8f1c4f0001bffec9',
-            //         'value'         =>  $last_name
-            //     )
-            // ]
+            'email'  =>  $email,
+            'customFields'  =>  [
+                array(
+                    'customFieldId' =>  '6022773d03ae900001dc21d5',
+                    'value'         =>  $first_name
+                ),
+                array(
+                    'customFieldId' =>  '6022773d1d3a2c0001f289f4',
+                    'value'         =>  $last_name
+                )
+            ]
 		);
 
         // return json_encode($data);
