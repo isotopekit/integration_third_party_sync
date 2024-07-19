@@ -37,7 +37,7 @@ class GoHighLevel
 		$res = json_decode($response);
 		if(isset($res->tags))
 		{
-			return true;
+			return $res->tags;
 		}
 		else
 		{
