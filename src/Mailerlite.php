@@ -5,7 +5,7 @@ namespace IsotopeKit\IntegrationThirdPartySync;
 class Mailerlite
 {
     private $api_key;
-    private $api_url = "https://api.mailerlite.com/api/v2";
+    private $api_url = "https://connect.mailerlite.com/api";
 
 	public function __construct($api_key)
 	{
@@ -21,7 +21,8 @@ class Mailerlite
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
-                'X-MailerLite-ApiKey: '.$this->api_key
+                'Accept: application/json',
+                'Authorization: Bearer '.$this->api_key
             ),
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
@@ -49,11 +50,12 @@ class Mailerlite
         // create contact
         $curl = curl_init();
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => $this->api_url."/groups/".$listID."/subscribers",
+		CURLOPT_URL => $this->api_url."/subscribers",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/json',
-            'X-MailerLite-ApiKey: '.$this->api_key
+            'Accept: application/json',
+            'Authorization: Bearer '.$this->api_key
         ),
 		CURLOPT_ENCODING => "",
 		CURLOPT_MAXREDIRS => 10,
@@ -63,8 +65,14 @@ class Mailerlite
 		CURLOPT_CUSTOMREQUEST => "POST",
 		CURLOPT_POSTFIELDS => json_encode(array(
                 "email"         =>  $email,
-                "name"          =>  $first_name." ".$last_name,
-				"phone"			=>	$phone
+                "fields"        =>  array(
+                    "name"      =>  $first_name,
+                    "last_name" =>  $last_name,
+                    "phone"		=>	$phone
+                ),
+                "groups"        =>  [
+                    $listID
+                ]
 			))
 		));
 
@@ -74,17 +82,17 @@ class Mailerlite
 
         $response = json_decode($response);
         
-        if(isset($response->id))
+        if(isset($response->data->id))
         {
             return "done";
         }
 
-        if(isset($response->error))
+        if(isset($response->message))
         {
-            if($response->error->code == 302)
-            {
+            // if($response->error->code == 302)
+            // {
                 return "connection_error";
-            }
+            // }
         }
 
         return json_encode($response);
