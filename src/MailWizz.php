@@ -32,7 +32,7 @@ class MailWizz
     public function getLists()
     {
         $endpoint = new \EmsApi\Endpoint\Lists();
-        $response = $endpoint->getList($pageNumber = 1, $perPage = 20);
+        $response = $endpoint->getLists(1, 100);
         return $response->body;
     }
 
